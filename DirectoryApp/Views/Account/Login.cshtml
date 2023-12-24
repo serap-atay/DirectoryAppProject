@@ -1,0 +1,88 @@
+﻿@model LoginViewModel
+﻿<section class="page-title-area">
+
+        <div class="title container col-md-4 col-lg-6 col-xl-8">
+            <h1>ORIONPOS</h1>
+            <h1>PHONE</h1>
+            <h1>DIRECTORY</h1>
+        </div>
+    <div class="row mt-5">
+        <div class="container col-md-8 mt-5"></div>
+        <div class="container col-md-4 mt-5">
+            <form method="post" asp-controller="Account" asp-action="Login" id="loginForm">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row mb-2">
+                    <div class="col-md-3">
+                        <label asp-for="UserName" class="form-label">User Name:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input asp-for="UserName" class="form-control" name="username" type="text" placeholder="Enter your username">
+                     @*    <span asp-validation-for="UserName" class="text-danger"></span> *@
+                    </div>
+
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-3">
+                        <label asp-for="Password" class="form-label">Password: </label>
+                    </div>
+                    <div class="col-md-9">
+                        <input asp-for="Password" class="form-control" type="password" name="password" id="password" placeholder="Enter your password">
+@*                         <span asp-validation-for="Password" class="text-danger"></span> *@
+                    </div>
+
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-7">
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-check">
+                            <div class="row mb-2">
+                                <div class="col-md-10">
+                                    <label asp-for="RememberMe" class="form-check-label" for="checkbox-signin">Remember Me</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input asp-for="RememberMe" type="checkbox" class="form-check-input" id="checkbox-signin" checked>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-2 d-grid text-center">
+                    <button class="btn btn-primary" type="submit"> Log In </button>
+                </div>
+            </form>
+
+            <div class="mb-40">
+                <p>
+                    Don't you have a membership? <a asp-controller="Account" asp-action="Register">
+                        Click to register
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    $(document).ready(function () {
+
+        $('#loginForm').validate({
+            rules: {
+                username: {
+                    required: true,
+                },
+                password: {
+                    required: true,
+                    minlength: 6,
+                    number: true
+                }
+
+            },
+        });
+
+    });
+</script>
+

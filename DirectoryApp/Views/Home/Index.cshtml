@@ -1,0 +1,289 @@
+﻿@model ContactViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="page-logout-area">
+    <button type="button" class="btn btn-outline-dark d-block">
+        <a asp-area="" asp-controller="Account" asp-action="Logout" class="d-inline">
+            <i class="bi bi-power" style="color:#ffffff"></i>
+            </a>
+     </button>
+     <span class="d-block">Logout</span>
+    </div>
+
+<div class="container col-md-4 col-lg-6 col-xl-8">
+    <div class="page-people-area">
+        <span class="people" style="padding-left:40px">PEOPLE</span>
+        <i class="bi bi-caret-down-fill" style="padding-left:200px"></i>
+    </div>
+
+    <div class="page-phonebook-area">
+        <i class="bi bi-list-task" style="padding-left:40px"></i>
+        <span class="phonebook" style="padding-left:5px">Phone Book</span>
+    </div>
+
+
+    <div class="page-list-area">
+        <div class="page-table-area">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="table-title">FULL NAME</th>
+                        <th class="table-title">PHONE</th>
+                    </tr>
+                </thead>
+                <tbody id="table-contact">
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="pagination-page"></div>
+            </div>
+        </div>
+        <div class="page-search-area">
+            <div class="input-group md-form form-sm form-1 pl-0">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="background-color:#F7F7FA" id="text">
+                        <i class="bi bi-search"></i>
+                    </span>
+                </div>
+                <input id="searchinput" class="form-control" type="text" placeholder="Search..." style="border-left:none;background-color:#F7F7FA">
+            </div>
+            <div class="page-button-area">
+                <div class="btn" data-bs-toggle="modal" data-bs-target="#addModal" style="background-color:#F7F7FA; border-color:#F7F7FA">
+                    <i class="bi bi-plus-circle-fill" style="color:#6D708C"></i>
+                </div>
+                <div class="btn" data-bs-toggle="modal" data-bs-target="#updateModal" style="background-color:#F7F7FA; border-color:#F7F7FA">
+                    <i class="bi bi-pencil-fill" style="color:#6D708C"></i>
+                </div>
+                <div class="btn" style="background-color:#F7F7FA; border-color:#F7F7FA">
+                    <i class="bi bi-copy" style="color:#6D708C"></i>
+                </div>
+                <div class="btn" data-bs-toggle="modal" data-bs-target="#deleteModal" style="background-color:#F7F7FA; border-color:#F7F7FA">
+                    <i class="bi bi-trash3-fill" style="color:#FF94A1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="addModal" aria-labelledby="addModalLabel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Add New Record</h5>
+            </div>
+            <div class="modal-body">
+                <form id="addRecordForm">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label" style="color:#767676;padding-left:50px">Name</label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Name" class="form-control" type="text" placeholder="Enter your name">
+                                <span asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Surname" class="form-label" style="color:#767676;padding-left:50px">Surname</label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Surname" class="form-control" type="text" placeholder="Enter your surname">
+                                <span asp-validation-for="Surname"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Phone" class="form-label" style="color:#767676; padding-left:50px">Phone</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Phone" class="form-control phone" type="text" placeholder="Enter your phone">
+                                <span asp-validation-for="Phone"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="mb-3 text-center col-md-6 mt-2">
+                                    <button class="btn" type="button" onclick="save()" style="width:120px; background-color:#1F7833">Save</button>
+                                </div>
+                                <div class="mb-3 text-center col-md-6 mt-2">
+                                    <button type="button" class="btn" style="width:120px; background-color:#C90024" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateModal" aria-labelledby="updateModalLabel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Record</h5>
+            </div>
+            <div class="modal-body">
+                <form id="updateRecordForm">
+                    <input asp-for="id" class="form-control recordId" type="hidden">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label" style="color:#767676;padding-left:50px">Name</label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Name" class="form-control name" type="text" placeholder="Enter your name">
+                                <span asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Surname" class="form-label" style="color:#767676;padding-left:50px">Surname</label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Surname" class="form-control surname" type="text" placeholder="Enter your surname">
+                                <span asp-validation-for="Surname"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Phone" class="form-label" style="color:#767676; padding-left:50px">Phone</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Phone" class="form-control phone phone-text" type="text" placeholder="Enter your phone">
+                                <span asp-validation-for="Phone"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="mb-3 text-center col-md-6 mt-2">
+                                    <button class="btn" type="button" onclick="update()" style="width:120px; background-color:#1F7833">Update</button>
+                                </div>
+                                <div class="mb-3 text-center col-md-6 mt-2">
+                                    <button type="button" class="btn btn-secondary" style="width:120px; background-color:#C90024" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" aria-labelledby="deleteModalLabel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Record</h5>
+            </div>
+            <div class="modal-body">
+                <form id="deleteRecordForm">
+                    <input asp-for="id" class="form-control recordId" type="hidden">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label" style="color:#767676;padding-left:50px">Name</label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Name" class="form-control name" type="text" placeholder="Enter your name">
+                                <span asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Surname" class="form-label" style="color:#767676;padding-left:50px">Surname</label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Surname" class="form-control surname" type="text" placeholder="Enter your surname">
+                                <span asp-validation-for="Surname"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Phone" class="form-label" style="color:#767676; padding-left:50px">Phone</label>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <input asp-for="Phone" class="form-control phone phone-text" type="text" placeholder="Enter your phone">
+                                <span asp-validation-for="Phone"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="mb-3 text-center col-md-6 mt-2">
+                                    <button class="btn" type="button" onclick="softdelete()" style="width:120px; background-color:#1F7833">Delete</button>
+                                </div>
+                                <div class="mb-3 text-center col-md-6 mt-2">
+                                    <button type="button" class="btn btn-secondary" style="width:120px; background-color:#C90024" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.phone').inputmask("(999)999-99-99");
+</script>

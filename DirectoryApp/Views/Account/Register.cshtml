@@ -1,0 +1,120 @@
+﻿@model RegisterViewModel
+﻿<section class="page-title-area">
+
+    <div class="title container col-md-4 col-lg-6 col-xl-8">
+        <h1>ORIONPOS</h1>
+        <h1>PHONE</h1>
+        <h1>DIRECTORY</h1>
+    </div>
+    <div class="row">
+        <div class="container col-md-6 "></div>
+        <div class="container col-md-6 ">
+            <div class="text-center mb-3">
+                <h4 class="text-uppercase">Register</h4>
+            </div>
+
+            <form method="post" asp-controller="Account" asp-action="Register" id="registerForm">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label asp-for="UserName" class="form-label">UserName</label>
+                            <input asp-for="UserName" name="username" class="form-control" type="text" placeholder="Enter your username">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" name="email" class="form-control" type="email" placeholder="Enter your email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label asp-for="Name" class="form-label">Name</label>
+                            <input asp-for="Name"  name="name" class="form-control" type="text" placeholder="Enter your name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label asp-for="Surname" class="form-label">Surname</label>
+                            <input asp-for="Surname" name="surname" class="form-control" type="text" placeholder="Enter your surname">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label asp-for="Password" class="form-label">Password</label>
+                            <input asp-for="Password" id="pass" name="password" class="form-control" type="password" placeholder="Enter your password">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-2">
+                            <label asp-for="ConfirmPassword" class="form-label">ConfirmPassword</label>
+                            <input asp-for="ConfirmPassword" name="confirmPassword" class="form-control" type="password" placeholder="Enter your confirmPassword">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 text-center d-grid mt-2">
+                    <button class="btn btn-primary" type="submit"> Sign Up </button>
+                </div>
+
+            </form>
+
+            <div class="mb-40">
+                <p>
+                    Do you have a membership? <a asp-controller="Account" asp-action="Login">
+                        Click to login
+                    </a>
+                </p>
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#registerForm').validate({ 
+            rules: {
+                username: {
+                    required: true,
+                },
+                name: {
+                    required: true,
+                },
+                surname: {
+                    required: true,
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6,
+                    number: true
+                },
+                confirmPassword: {
+                    required: true,
+                    minlength: 6,
+                    number: true,
+                    equalTo: "#pass"
+                }
+
+            },
+            messages: {
+                email: {
+                    email: "Your email address must be in the format of name@domain.com"
+                },
+                confirmPassword: {
+                    equalTo: "Please enter the same password as above"
+                }
+            }
+        });
+
+    });
+</script>
